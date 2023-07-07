@@ -294,7 +294,6 @@ private:
 	TextBox^ tb_Control;
 	Pointer^ pointer;
 	ActivePlayer^ activePlayer;
-//	array<EmptyListElement^, 2>^ listOfEmpty;
 	bool gameOver;
 	// Methods
 	void FillBoard()
@@ -302,9 +301,6 @@ private:
 		for (int i = 0; i < boardSize->i; i++) {
 			for (int j = 0; j < boardSize->j; j++) {
 				cells[i, j] = gcnew Cell(i, j);
-//				listOfEmpty[i, j] = gcnew EmptyListElement;
-//				listOfEmpty[i, j]->cell = cells[i, j];
-//				listOfEmpty[i, j]->isEmpty = cells[i, j]->isCellEmpty();
 			}
 		}
 		HighlightPointerCells();
@@ -356,14 +352,6 @@ private:
 	{
 		return activePlayer->isPlayer_2;
 	}
-	/*
-	void RemoveFromEmptyCellsList(Cell^ cell)
-	{
-		int x = cell->getX();
-		int y = cell->getY();
-		listOfEmpty[x, y] = nullptr;
-	}
-	*/
 	void CheckAdjacentCellExistance(Cell^ cell)
 	{
 		bool s1 = cell->getX() - 1 >= 0;
@@ -500,7 +488,6 @@ public:
 			boardSize->j = boardSizeJ;
 		}
 		cells = gcnew array<Cell^, 2>(boardSize->i, boardSize->j);
-//		listOfEmpty = gcnew array < EmptyListElement^, 2>(boardSize->i, boardSize->j);
 		FillBoard();
 		setAdjacencyForAllCells();
 		setActivePlayer_1();
@@ -624,4 +611,19 @@ public:
 		}
 		pb->Image = bmp;
 	}
+};
+ref class GameController
+{
+private:
+	bool isMainMenu;
+	bool isBoardSizeChooseMenu;
+	bool isGameOver;
+public:
+	GameController()
+	{
+		isMainMenu = true;
+		isBoardSizeChooseMenu = false;
+		isGameOver = false;
+	}
+
 };
