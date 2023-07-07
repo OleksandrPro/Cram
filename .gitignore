@@ -6,3 +6,7 @@ Lab4/x64/
 .filters
 .user
 .resx
+Lab4.vcxproj
+Lab4.vcxproj.filters
+Lab4.vcxproj.user
+MainForm.resx
