@@ -88,6 +88,7 @@ namespace Lab4 {
 			this->textBox1->Size = System::Drawing::Size(490, 49);
 			this->textBox1->TabIndex = 1;
 			this->textBox1->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+//			this->textBox1->BackColor = System::Drawing::Color::Red;
 			// 
 			// textBox2
 			// 

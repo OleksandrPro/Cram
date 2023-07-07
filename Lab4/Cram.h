@@ -38,6 +38,7 @@ private:
 	Coordinates^ coordinates;
 	HasAdjacent^ hasAdjacentCells;
 	AdjacentCells^ adjacentCells;
+	bool hasAtLeastOneEmptyAdjacentCell;
 public:
 	Cell(unsigned int x, unsigned int y)
 	{
@@ -51,6 +52,7 @@ public:
 		state->isHighlighted = false;
 		hasAdjacentCells = gcnew HasAdjacent;
 		adjacentCells = gcnew AdjacentCells;
+		hasAtLeastOneEmptyAdjacentCell = true;
 	}
 	int getX()
 	{
@@ -158,6 +160,14 @@ public:
 	Cell^ getAdjacent_down()
 	{
 		return adjacentCells->down;
+	}
+	void setHasAtLeastOneEmptyAdjacentCell(bool b)
+	{
+		hasAtLeastOneEmptyAdjacentCell = b;
+	}
+	bool getHasAtLeastOneEmptyAdjacentCell()
+	{
+		return hasAtLeastOneEmptyAdjacentCell;
 	}
 	void Draw(Graphics^ g)
 	{
@@ -284,7 +294,7 @@ private:
 	TextBox^ tb_Control;
 	Pointer^ pointer;
 	ActivePlayer^ activePlayer;
-	array<EmptyListElement^, 2>^ listOfEmpty;
+//	array<EmptyListElement^, 2>^ listOfEmpty;
 	bool gameOver;
 	// Methods
 	void FillBoard()
@@ -292,9 +302,9 @@ private:
 		for (int i = 0; i < boardSize->i; i++) {
 			for (int j = 0; j < boardSize->j; j++) {
 				cells[i, j] = gcnew Cell(i, j);
-				listOfEmpty[i, j] = gcnew EmptyListElement;
-				listOfEmpty[i, j]->cell = cells[i, j];
-				listOfEmpty[i, j]->isEmpty = cells[i, j]->isCellEmpty();
+//				listOfEmpty[i, j] = gcnew EmptyListElement;
+//				listOfEmpty[i, j]->cell = cells[i, j];
+//				listOfEmpty[i, j]->isEmpty = cells[i, j]->isCellEmpty();
 			}
 		}
 		HighlightPointerCells();
@@ -346,12 +356,14 @@ private:
 	{
 		return activePlayer->isPlayer_2;
 	}
+	/*
 	void RemoveFromEmptyCellsList(Cell^ cell)
 	{
 		int x = cell->getX();
 		int y = cell->getY();
 		listOfEmpty[x, y] = nullptr;
 	}
+	*/
 	void CheckAdjacentCellExistance(Cell^ cell)
 	{
 		bool s1 = cell->getX() - 1 >= 0;
@@ -384,6 +396,15 @@ private:
 		{
 			cell->setAdjacent_down(cells[x, y + 1]);
 		}
+		array<Cell^, 1>^ adjacentCells = getArrayOfAjacentCells(cell);
+		for each (Cell^ item in adjacentCells)
+		{
+			if (item != nullptr && item->isCellEmpty())
+			{
+				cell->setHasAtLeastOneEmptyAdjacentCell(true);
+				return;
+			}
+		}
 	}
 	array<Cell^, 1>^ getArrayOfAjacentCells(Cell^ cell)
 	{
@@ -394,28 +415,36 @@ private:
 		result[3] = cell->getAdjacent_down();
 		return result;
 	}
-	bool CheckMovePossibility()
+	void updateAdjacentCellsState(Cell^ cell)
 	{
-		int elemCounter = 0;
-		int counterT = 0;
-		for each (EmptyListElement ^ item in listOfEmpty)
+		array<Cell^, 1>^ adjacentCells = getArrayOfAjacentCells(cell);
+		for each (Cell ^ item in adjacentCells)
 		{
 			if (item != nullptr)
 			{
-				elemCounter++;
-				array<Cell^, 1>^ adjacentCells = getArrayOfAjacentCells(item->cell);
-				for each (Cell ^ adjacentCell in adjacentCells)
+				array<Cell^, 1>^ chechThisCells = getArrayOfAjacentCells(item);
+				for each (Cell ^ cll in chechThisCells)
 				{
-					if (adjacentCell != nullptr && adjacentCell->isCellEmpty())
+					if (cll!=nullptr && cll->isCellEmpty())
 					{
-						counterT++;
+						item->setHasAtLeastOneEmptyAdjacentCell(true);
 						break;
 					}
+					item->setHasAtLeastOneEmptyAdjacentCell(false);
 				}
 			}
-
 		}
-		return(counterT > 0);
+	}
+	bool CheckMovePossibility()
+	{
+		for each (Cell^ cell in cells)
+		{
+			if (cell->isCellEmpty() && cell->getHasAtLeastOneEmptyAdjacentCell()) 
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	void PrintGameState()
 	{
@@ -434,10 +463,12 @@ private:
 		else if (getPlayer1())
 		{
 			tb_State->AppendText("First player's turn");
+			tb_State->BackColor = Color::Red;
 		}
 		else if (getPlayer2())
 		{
 			tb_State->AppendText("Second player's turn");
+			tb_State->BackColor = Color::CornflowerBlue;
 		}
 	}
 	void PrintControl()
@@ -469,7 +500,7 @@ public:
 			boardSize->j = boardSizeJ;
 		}
 		cells = gcnew array<Cell^, 2>(boardSize->i, boardSize->j);
-		listOfEmpty = gcnew array < EmptyListElement^, 2>(boardSize->i, boardSize->j);
+//		listOfEmpty = gcnew array < EmptyListElement^, 2>(boardSize->i, boardSize->j);
 		FillBoard();
 		setAdjacencyForAllCells();
 		setActivePlayer_1();
@@ -546,8 +577,10 @@ public:
 
 				cells[x, y]->setToPlayer_1();
 				cells[x2, y2]->setToPlayer_1();
-				RemoveFromEmptyCellsList(cells[x, y]);
-				RemoveFromEmptyCellsList(cells[x2, y2]);
+				updateAdjacentCellsState(cells[x, y]);
+				updateAdjacentCellsState(cells[x2, y2]);
+//				RemoveFromEmptyCellsList(cells[x, y]);
+//				RemoveFromEmptyCellsList(cells[x2, y2]);
 				setActivePlayer_2();
 
 			}
@@ -556,8 +589,10 @@ public:
 
 				cells[x, y]->setToPlayer_2();
 				cells[x2, y2]->setToPlayer_2();
-				RemoveFromEmptyCellsList(cells[x, y]);
-				RemoveFromEmptyCellsList(cells[x2, y2]);
+				updateAdjacentCellsState(cells[x, y]);
+				updateAdjacentCellsState(cells[x2, y2]);
+//				RemoveFromEmptyCellsList(cells[x, y]);
+//				RemoveFromEmptyCellsList(cells[x2, y2]);
 				setActivePlayer_1();
 
 			}
