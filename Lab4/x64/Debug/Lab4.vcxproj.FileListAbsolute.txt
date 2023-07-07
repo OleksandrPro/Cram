@@ -1,8 +1,0 @@
-C:\Users\WoXfoR\source\repos\Lab4\Lab4\x64\Debug\Lab4.vcxproj.AssemblyReference.cache
-C:\Users\WoXfoR\source\repos\Lab4\Lab4\x64\Debug\Lab4.vcxproj.SuggestedBindingRedirects.cache
-C:\Users\WoXfoR\source\repos\Lab4\Lab4\x64\Debug\Lab4.MainForm.resources
-C:\Users\WoXfoR\source\repos\Lab4\Lab4\x64\Debug\Lab4.vcxproj.GenerateResource.cache
-C:\Users\WoXfoR\source\repos\Cram\Lab4\x64\Debug\Lab4.vcxproj.AssemblyReference.cache
-C:\Users\WoXfoR\source\repos\Cram\Lab4\x64\Debug\Lab4.vcxproj.SuggestedBindingRedirects.cache
-C:\Users\WoXfoR\source\repos\Cram\Lab4\x64\Debug\Lab4.MainForm.resources
-C:\Users\WoXfoR\source\repos\Cram\Lab4\x64\Debug\Lab4.vcxproj.GenerateResource.cache

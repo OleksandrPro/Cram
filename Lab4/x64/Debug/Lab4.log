@@ -1,4 +1,0 @@
-﻿  MainForm.cpp
-C:\Users\WoXfoR\source\repos\Cram\Lab4\MainForm.cpp(6,1): warning C4829: Возможно, неправильные параметры функции main. Рекомендуемый вариант - "int main(Platform::Array<Platform::String^>^ argv)"
-  MainForm.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
-  Lab4.vcxproj -> C:\Users\WoXfoR\source\repos\Cram\x64\Debug\Lab4.exe
