@@ -10,4 +10,5 @@ Lab4.vcxproj
 Lab4.vcxproj.filters
 Lab4.vcxproj.user
 MainForm.resx
-.png
+*.png
+*.ico
