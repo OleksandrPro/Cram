@@ -22,6 +22,7 @@ namespace Lab4 {
 			//
 			//TODO: добавьте код конструктора
 			//
+			controller = gcnew GameController(pbBoard, textBox1, textBox2, buttonIDecrease,	buttonIIncrease, buttonJDecrease, buttonJIncrease, buttonStart);
 			gameBoard = gcnew Board(pbBoard, textBox1, textBox2, 10, 4);
 		}
 
@@ -38,8 +39,18 @@ namespace Lab4 {
 		}
 	private: System::Windows::Forms::PictureBox^ pbBoard;
 		   Board^ gameBoard;
+		   GameController^ controller;
 	private: System::Windows::Forms::TextBox^ textBox1;
 	private: System::Windows::Forms::TextBox^ textBox2;
+	private: System::Windows::Forms::Button^ buttonIDecrease;
+	private: System::Windows::Forms::Button^ buttonIIncrease;
+	private: System::Windows::Forms::Button^ buttonJDecrease;
+	private: System::Windows::Forms::Button^ buttonJIncrease;
+
+
+
+
+	private: System::Windows::Forms::Button^ buttonStart;
 
 
 	protected:
@@ -60,6 +71,11 @@ namespace Lab4 {
 			this->pbBoard = (gcnew System::Windows::Forms::PictureBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
+			this->buttonIDecrease = (gcnew System::Windows::Forms::Button());
+			this->buttonIIncrease = (gcnew System::Windows::Forms::Button());
+			this->buttonJDecrease = (gcnew System::Windows::Forms::Button());
+			this->buttonJIncrease = (gcnew System::Windows::Forms::Button());
+			this->buttonStart = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbBoard))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -104,11 +120,61 @@ namespace Lab4 {
 			this->textBox2->TabIndex = 2;
 			this->textBox2->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
+			// buttonIDecrease
+			// 
+			this->buttonIDecrease->Location = System::Drawing::Point(7, 66);
+			this->buttonIDecrease->Name = L"buttonIDecrease";
+			this->buttonIDecrease->Size = System::Drawing::Size(102, 37);
+			this->buttonIDecrease->TabIndex = 3;
+			this->buttonIDecrease->Text = L"-1";
+			this->buttonIDecrease->UseVisualStyleBackColor = true;
+			// 
+			// buttonIIncrease
+			// 
+			this->buttonIIncrease->Location = System::Drawing::Point(611, 66);
+			this->buttonIIncrease->Name = L"buttonIIncrease";
+			this->buttonIIncrease->Size = System::Drawing::Size(102, 37);
+			this->buttonIIncrease->TabIndex = 4;
+			this->buttonIIncrease->Text = L"+1";
+			this->buttonIIncrease->UseVisualStyleBackColor = true;
+			// 
+			// buttonJDecrease
+			// 
+			this->buttonJDecrease->Location = System::Drawing::Point(7, 215);
+			this->buttonJDecrease->Name = L"buttonJDecrease";
+			this->buttonJDecrease->Size = System::Drawing::Size(102, 37);
+			this->buttonJDecrease->TabIndex = 5;
+			this->buttonJDecrease->Text = L"-1";
+			this->buttonJDecrease->UseVisualStyleBackColor = true;
+			// 
+			// buttonJIncrease
+			// 
+			this->buttonJIncrease->Location = System::Drawing::Point(611, 215);
+			this->buttonJIncrease->Name = L"buttonJIncrease";
+			this->buttonJIncrease->Size = System::Drawing::Size(102, 37);
+			this->buttonJIncrease->TabIndex = 6;
+			this->buttonJIncrease->Text = L"+1";
+			this->buttonJIncrease->UseVisualStyleBackColor = true;
+			// 
+			// buttonStart
+			// 
+			this->buttonStart->Location = System::Drawing::Point(272, 298);
+			this->buttonStart->Name = L"buttonStart";
+			this->buttonStart->Size = System::Drawing::Size(166, 45);
+			this->buttonStart->TabIndex = 7;
+			this->buttonStart->Text = L"Start Game";
+			this->buttonStart->UseVisualStyleBackColor = true;
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(734, 611);
+			this->Controls->Add(this->buttonStart);
+			this->Controls->Add(this->buttonJIncrease);
+			this->Controls->Add(this->buttonJDecrease);
+			this->Controls->Add(this->buttonIIncrease);
+			this->Controls->Add(this->buttonIDecrease);
 			this->Controls->Add(this->textBox2);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->pbBoard);
