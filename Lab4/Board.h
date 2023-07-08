@@ -5,7 +5,6 @@
 
 ref class Board
 {
-
 	ref struct BoardSize
 	{
 		int i;
