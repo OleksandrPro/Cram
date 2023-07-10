@@ -22,7 +22,8 @@ namespace Lab4 {
 			//
 			//TODO: добавьте код конструктора
 			//
-			gameBoard = gcnew Board(pbBoard, textBox1, textBox2, 10, 4);
+//			gameBoard = gcnew Board(pbBoard, textBox1, textBox2, 10, 4);
+			gameController = gcnew GameController(pbBoard, textBox1, textBox2);
 		}
 
 	protected:
@@ -38,6 +39,7 @@ namespace Lab4 {
 		}
 	private: System::Windows::Forms::PictureBox^ pbBoard;
 		   Board^ gameBoard;
+		   GameController^ gameController;
 	private: System::Windows::Forms::TextBox^ textBox1;
 	private: System::Windows::Forms::TextBox^ textBox2;
 
@@ -131,7 +133,8 @@ namespace Lab4 {
 	}
 	private: System::Void pbBoard_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) 
 	{
-		gameBoard->DrawBoard();
+		gameController->Draw();
+		
 	}
 	private: System::Void MainForm_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) 
 	{		
@@ -175,15 +178,15 @@ namespace Lab4 {
 		}
 		if (move)
 		{
-			gameBoard->MovePointer(x, y);
+			gameController->MovePointer(x, y);
 		}
 		if (rotate)
 		{
-			gameBoard->RotatePointer();
+			gameController->RotatePointer();
 		}
 		if (setPlayer)
 		{
-			gameBoard->setCellToPlayer();
+			gameController->setCellToPlayer();
 		}
 	}
 };
