@@ -11,23 +11,31 @@ private:
 	bool isMainMenu;
 	bool isNewGameMenu;
 	bool isBoardSizeChooseMenu;
+	bool isGameWindow;
 	bool isGameOver;
 	Board^ gameBoard;
 	PictureBox^ pb;
 	TextBox^ tb_State;
 	TextBox^ tb_Control;
+	Button^ buttonStart;
 public:
 	
-	GameController(PictureBox^ pb1, TextBox^ tb1, TextBox^ tb2)
+	GameController(PictureBox^ pb1, TextBox^ tb1, TextBox^ tb2, Button^ btnStart)
 	{
 		isMainMenu = true;
 		isNewGameMenu = false;
 		isBoardSizeChooseMenu = false;
+		isGameWindow = false;
 		isGameOver = false;
 		pb = pb1;
 		tb_State = tb1;
 		tb_Control = tb2;
+		buttonStart = btnStart;
 		gameBoard = gcnew Board(pb, tb1, tb2, 10, 4);
+	}
+	bool getIsGameWindow()
+	{
+		return isGameWindow;
 	}
 	void gotoMainMenu()
 	{
@@ -67,5 +75,29 @@ public:
 	void setCellToPlayer()
 	{
 		gameBoard->setCellToPlayer();
+	}
+	void gotoGameWindow()
+	{
+		isMainMenu = false;
+		isGameWindow = true;
+		display();
+	}
+	void display()
+	{
+		if (isMainMenu)
+		{
+			pb->Visible = false;
+			tb_State->Visible = false;
+			tb_Control->Visible = false;
+			buttonStart->Visible = true;
+		}
+		if (isGameWindow)
+		{
+			pb->Visible = true;
+			tb_State->Visible = true;
+			tb_Control->Visible = true;
+			buttonStart->Visible = false;
+			buttonStart->Enabled = false;
+		}
 	}
 };

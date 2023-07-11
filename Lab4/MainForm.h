@@ -23,7 +23,7 @@ namespace Lab4 {
 			//TODO: добавьте код конструктора
 			//
 //			gameBoard = gcnew Board(pbBoard, textBox1, textBox2, 10, 4);
-			gameController = gcnew GameController(pbBoard, textBox1, textBox2);
+			gameController = gcnew GameController(pbBoard, textBox1, textBox2, buttonStart);
 		}
 
 	protected:
@@ -42,6 +42,7 @@ namespace Lab4 {
 		   GameController^ gameController;
 	private: System::Windows::Forms::TextBox^ textBox1;
 	private: System::Windows::Forms::TextBox^ textBox2;
+	private: System::Windows::Forms::Button^ buttonStart;
 
 
 	protected:
@@ -62,6 +63,7 @@ namespace Lab4 {
 			this->pbBoard = (gcnew System::Windows::Forms::PictureBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
+			this->buttonStart = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbBoard))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -106,11 +108,23 @@ namespace Lab4 {
 			this->textBox2->TabIndex = 2;
 			this->textBox2->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			// 
+			// buttonStart
+			// 
+			this->buttonStart->Location = System::Drawing::Point(257, 218);
+			this->buttonStart->Name = L"buttonStart";
+			this->buttonStart->Size = System::Drawing::Size(214, 56);
+			this->buttonStart->TabIndex = 3;
+			this->buttonStart->TabStop = false;
+			this->buttonStart->Text = L"Start game";
+			this->buttonStart->UseVisualStyleBackColor = true;
+			this->buttonStart->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::buttonStart_MouseClick);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(734, 611);
+			this->Controls->Add(this->buttonStart);
 			this->Controls->Add(this->textBox2);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->pbBoard);
@@ -133,7 +147,11 @@ namespace Lab4 {
 	}
 	private: System::Void pbBoard_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) 
 	{
-		gameController->Draw();
+		if (gameController->getIsGameWindow())
+		{
+			gameController->Draw();
+		}
+//		gameController->Draw();
 		
 	}
 	private: System::Void MainForm_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) 
@@ -189,5 +207,10 @@ namespace Lab4 {
 			gameController->setCellToPlayer();
 		}
 	}
+private: System::Void buttonStart_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) 
+{
+	gameController->gotoGameWindow();
+	this->Focus();
+}
 };
 }
