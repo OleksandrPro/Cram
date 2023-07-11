@@ -17,21 +17,33 @@ private:
 	PictureBox^ pb;
 	TextBox^ tb_State;
 	TextBox^ tb_Control;
+
 	Button^ buttonStart;
+	Button^ buttonDecreaseX;
+	Button^ buttonIncreaseX;
+	Button^ buttonDecreaseY;
+	Button^ buttonIncreaseY;
 public:
 	
-	GameController(PictureBox^ pb1, TextBox^ tb1, TextBox^ tb2, Button^ btnStart)
+	GameController(PictureBox^ pb1, TextBox^ tb1, TextBox^ tb2, Button^ btnStart, Button^ btnDecreaseX, Button^ btnIncreaseX, Button^ btnDecreaseY, Button^ btnIncreaseY)
 	{
 		isMainMenu = true;
 		isNewGameMenu = false;
 		isBoardSizeChooseMenu = false;
 		isGameWindow = false;
 		isGameOver = false;
+
 		pb = pb1;
 		tb_State = tb1;
 		tb_Control = tb2;
 		buttonStart = btnStart;
-		gameBoard = gcnew Board(pb, tb1, tb2, 10, 4);
+
+		buttonDecreaseX = btnDecreaseX;
+		buttonIncreaseX = btnIncreaseX;
+		buttonDecreaseY = btnDecreaseY;
+		buttonIncreaseY = btnIncreaseY;
+//		gameBoard = gcnew Board(pb, tb1, tb2, 10, 4);
+		display();
 	}
 	bool getIsGameWindow()
 	{
@@ -42,23 +54,42 @@ public:
 		isMainMenu = true;
 		isNewGameMenu = false;
 		isBoardSizeChooseMenu = false;
+		isGameWindow = false;
+		display();
 	}
 	void gotoNewGameMenu()
 	{
 		isMainMenu = false;
 		isNewGameMenu = true;
 		isBoardSizeChooseMenu = false;
+		isGameWindow = false;
+		display();
 	}
 	void gotoChooseMenu()
 	{
 		isMainMenu = false;
 		isNewGameMenu = false;
 		isBoardSizeChooseMenu = true;
+		isGameWindow = false;
+		display();
 	}
 	void startGame(int boardSizeI, int boardSizeJ)
 	{
-		isGameOver = false;
+		isMainMenu = false;
+		isNewGameMenu = false;
+		isBoardSizeChooseMenu = false;
+		isGameWindow = true;
 		gameBoard = gcnew Board(pb, tb_State, tb_Control, boardSizeI, boardSizeJ);
+		display();
+	}
+	void gotoGameWindow()
+	{
+		isMainMenu = false;
+		isNewGameMenu = false;
+		isBoardSizeChooseMenu = false;
+		isGameWindow = true;
+		gameBoard = gcnew Board(pb, tb_State, tb_Control, 10, 4);
+		display();
 	}
 	void Draw()
 	{
@@ -76,11 +107,18 @@ public:
 	{
 		gameBoard->setCellToPlayer();
 	}
-	void gotoGameWindow()
+	void setButtonState(Button^ btn, bool b)
 	{
-		isMainMenu = false;
-		isGameWindow = true;
-		display();
+		btn->Visible = b;
+		btn->Enabled = b;
+	}
+	void enableButton(Button^ btn)
+	{
+		setButtonState(btn, true);
+	}
+	void disableButton(Button^ btn)
+	{
+		setButtonState(btn, false);
 	}
 	void display()
 	{
@@ -89,15 +127,32 @@ public:
 			pb->Visible = false;
 			tb_State->Visible = false;
 			tb_Control->Visible = false;
-			buttonStart->Visible = true;
+
+			enableButton(buttonStart);
+			disableButton(buttonDecreaseX);
+			disableButton(buttonIncreaseX);
+			disableButton(buttonDecreaseY);
+			disableButton(buttonIncreaseY);
+		}
+		if (isNewGameMenu)
+		{
+
+		}
+		if (isBoardSizeChooseMenu)
+		{
+
 		}
 		if (isGameWindow)
 		{
 			pb->Visible = true;
 			tb_State->Visible = true;
 			tb_Control->Visible = true;
-			buttonStart->Visible = false;
-			buttonStart->Enabled = false;
+
+			disableButton(buttonStart);
+			disableButton(buttonDecreaseX);
+			disableButton(buttonIncreaseX);
+			disableButton(buttonDecreaseY);
+			disableButton(buttonIncreaseY);
 		}
 	}
 };

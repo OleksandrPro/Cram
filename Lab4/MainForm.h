@@ -23,7 +23,7 @@ namespace Lab4 {
 			//TODO: добавьте код конструктора
 			//
 //			gameBoard = gcnew Board(pbBoard, textBox1, textBox2, 10, 4);
-			gameController = gcnew GameController(pbBoard, textBox1, textBox2, buttonStart);
+			gameController = gcnew GameController(pbBoard, textBox1, textBox2, buttonStart, buttonDecreaseX, buttonIncreaseX, buttonDecreaseY, buttonIncreaseY);
 		}
 
 	protected:
@@ -43,6 +43,14 @@ namespace Lab4 {
 	private: System::Windows::Forms::TextBox^ textBox1;
 	private: System::Windows::Forms::TextBox^ textBox2;
 	private: System::Windows::Forms::Button^ buttonStart;
+	private: System::Windows::Forms::Button^ buttonDecreaseX;
+	private: System::Windows::Forms::Button^ buttonIncreaseX;
+
+
+	private: System::Windows::Forms::Button^ buttonDecreaseY;
+	private: System::Windows::Forms::Button^ buttonIncreaseY;
+
+
 
 
 	protected:
@@ -64,6 +72,10 @@ namespace Lab4 {
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->buttonStart = (gcnew System::Windows::Forms::Button());
+			this->buttonDecreaseX = (gcnew System::Windows::Forms::Button());
+			this->buttonIncreaseX = (gcnew System::Windows::Forms::Button());
+			this->buttonDecreaseY = (gcnew System::Windows::Forms::Button());
+			this->buttonIncreaseY = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pbBoard))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -119,11 +131,55 @@ namespace Lab4 {
 			this->buttonStart->UseVisualStyleBackColor = true;
 			this->buttonStart->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::buttonStart_MouseClick);
 			// 
+			// buttonDecreaseX
+			// 
+			this->buttonDecreaseX->Location = System::Drawing::Point(115, 58);
+			this->buttonDecreaseX->Name = L"buttonDecreaseX";
+			this->buttonDecreaseX->Size = System::Drawing::Size(94, 60);
+			this->buttonDecreaseX->TabIndex = 4;
+			this->buttonDecreaseX->TabStop = false;
+			this->buttonDecreaseX->Text = L"-1";
+			this->buttonDecreaseX->UseVisualStyleBackColor = true;
+			// 
+			// buttonIncreaseX
+			// 
+			this->buttonIncreaseX->Location = System::Drawing::Point(511, 58);
+			this->buttonIncreaseX->Name = L"buttonIncreaseX";
+			this->buttonIncreaseX->Size = System::Drawing::Size(94, 60);
+			this->buttonIncreaseX->TabIndex = 5;
+			this->buttonIncreaseX->TabStop = false;
+			this->buttonIncreaseX->Text = L"+1";
+			this->buttonIncreaseX->UseVisualStyleBackColor = true;
+			// 
+			// buttonDecreaseY
+			// 
+			this->buttonDecreaseY->Location = System::Drawing::Point(115, 216);
+			this->buttonDecreaseY->Name = L"buttonDecreaseY";
+			this->buttonDecreaseY->Size = System::Drawing::Size(94, 60);
+			this->buttonDecreaseY->TabIndex = 6;
+			this->buttonDecreaseY->TabStop = false;
+			this->buttonDecreaseY->Text = L"-1";
+			this->buttonDecreaseY->UseVisualStyleBackColor = true;
+			// 
+			// buttonIncreaseY
+			// 
+			this->buttonIncreaseY->Location = System::Drawing::Point(511, 216);
+			this->buttonIncreaseY->Name = L"buttonIncreaseY";
+			this->buttonIncreaseY->Size = System::Drawing::Size(94, 60);
+			this->buttonIncreaseY->TabIndex = 7;
+			this->buttonIncreaseY->TabStop = false;
+			this->buttonIncreaseY->Text = L"+1";
+			this->buttonIncreaseY->UseVisualStyleBackColor = true;
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(734, 611);
+			this->Controls->Add(this->buttonIncreaseY);
+			this->Controls->Add(this->buttonDecreaseY);
+			this->Controls->Add(this->buttonIncreaseX);
+			this->Controls->Add(this->buttonDecreaseX);
 			this->Controls->Add(this->buttonStart);
 			this->Controls->Add(this->textBox2);
 			this->Controls->Add(this->textBox1);
