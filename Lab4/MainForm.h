@@ -124,7 +124,7 @@ namespace Lab4 {
 			// 
 			this->buttonStart->Location = System::Drawing::Point(257, 218);
 			this->buttonStart->Name = L"buttonStart";
-			this->buttonStart->Size = System::Drawing::Size(214, 56);
+			this->buttonStart->Size = System::Drawing::Size(250, 50);
 			this->buttonStart->TabIndex = 3;
 			this->buttonStart->TabStop = false;
 			this->buttonStart->Text = L"Start game";
@@ -135,17 +135,18 @@ namespace Lab4 {
 			// 
 			this->buttonDecreaseX->Location = System::Drawing::Point(115, 58);
 			this->buttonDecreaseX->Name = L"buttonDecreaseX";
-			this->buttonDecreaseX->Size = System::Drawing::Size(94, 60);
+			this->buttonDecreaseX->Size = System::Drawing::Size(100, 60);
 			this->buttonDecreaseX->TabIndex = 4;
 			this->buttonDecreaseX->TabStop = false;
 			this->buttonDecreaseX->Text = L"-1";
 			this->buttonDecreaseX->UseVisualStyleBackColor = true;
+			this->buttonDecreaseX->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MainForm::buttonDecreaseX_MouseClick);
 			// 
 			// buttonIncreaseX
 			// 
 			this->buttonIncreaseX->Location = System::Drawing::Point(511, 58);
 			this->buttonIncreaseX->Name = L"buttonIncreaseX";
-			this->buttonIncreaseX->Size = System::Drawing::Size(94, 60);
+			this->buttonIncreaseX->Size = System::Drawing::Size(100, 60);
 			this->buttonIncreaseX->TabIndex = 5;
 			this->buttonIncreaseX->TabStop = false;
 			this->buttonIncreaseX->Text = L"+1";
@@ -155,7 +156,7 @@ namespace Lab4 {
 			// 
 			this->buttonDecreaseY->Location = System::Drawing::Point(115, 216);
 			this->buttonDecreaseY->Name = L"buttonDecreaseY";
-			this->buttonDecreaseY->Size = System::Drawing::Size(94, 60);
+			this->buttonDecreaseY->Size = System::Drawing::Size(100, 60);
 			this->buttonDecreaseY->TabIndex = 6;
 			this->buttonDecreaseY->TabStop = false;
 			this->buttonDecreaseY->Text = L"-1";
@@ -165,7 +166,7 @@ namespace Lab4 {
 			// 
 			this->buttonIncreaseY->Location = System::Drawing::Point(511, 216);
 			this->buttonIncreaseY->Name = L"buttonIncreaseY";
-			this->buttonIncreaseY->Size = System::Drawing::Size(94, 60);
+			this->buttonIncreaseY->Size = System::Drawing::Size(100, 60);
 			this->buttonIncreaseY->TabIndex = 7;
 			this->buttonIncreaseY->TabStop = false;
 			this->buttonIncreaseY->Text = L"+1";
@@ -265,7 +266,31 @@ namespace Lab4 {
 	}
 private: System::Void buttonStart_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) 
 {
-	gameController->gotoGameWindow();
+	if (gameController->getIsMainMenu())
+	{
+		gameController->gotoNewGameMenu();
+	}
+	else if (gameController->getIsNewGameMenu())
+	{
+		gameController->startGame(7, 5);
+	}
+	else if (gameController->getIsBoardSizeChooseMenu())
+	{
+		gameController->startGame(7, 5);
+	}
+	else if (gameController->getIsGameWindow())
+	{
+
+	}
+	
+	this->Focus();
+}
+private: System::Void buttonDecreaseX_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) 
+{
+	if (gameController->getIsNewGameMenu())
+	{
+		gameController->gotoBoardSizeChooseMenu();
+	}
 	this->Focus();
 }
 };

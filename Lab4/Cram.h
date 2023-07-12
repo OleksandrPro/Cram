@@ -45,6 +45,18 @@ public:
 //		gameBoard = gcnew Board(pb, tb1, tb2, 10, 4);
 		display();
 	}
+	bool getIsMainMenu()
+	{
+		return isMainMenu;
+	}
+	bool getIsNewGameMenu()
+	{
+		return isNewGameMenu;
+	}
+	bool getIsBoardSizeChooseMenu()
+	{
+		return isBoardSizeChooseMenu;
+	}
 	bool getIsGameWindow()
 	{
 		return isGameWindow;
@@ -65,7 +77,7 @@ public:
 		isGameWindow = false;
 		display();
 	}
-	void gotoChooseMenu()
+	void gotoBoardSizeChooseMenu()
 	{
 		isMainMenu = false;
 		isNewGameMenu = false;
@@ -136,11 +148,25 @@ public:
 		}
 		if (isNewGameMenu)
 		{
-
+			buttonStart->Text = "Default board size";
+			buttonDecreaseX->Text = "Custom board size";
+			buttonDecreaseX->Size = System::Drawing::Size(250, 50);
+			buttonDecreaseX->Location = System::Drawing::Point(257, 278);
+			enableButton(buttonStart);
+			enableButton(buttonDecreaseX);
 		}
 		if (isBoardSizeChooseMenu)
 		{
+			enableButton(buttonStart);
+			enableButton(buttonDecreaseX);
+			enableButton(buttonIncreaseX);
+			enableButton(buttonDecreaseY);
+			enableButton(buttonIncreaseY);
 
+			buttonStart->Text = "Start game";
+			buttonDecreaseX->Text = "-1";
+			buttonDecreaseX->Size = System::Drawing::Size(100, 60);
+			buttonDecreaseX->Location = System::Drawing::Point(115, 58);
 		}
 		if (isGameWindow)
 		{
