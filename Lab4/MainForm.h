@@ -355,7 +355,7 @@ namespace Lab4 {
 
 	private: System::Void textSide_TextChanged(System::Object^ sender, System::EventArgs^ e)
 	{
-		if (!gameController->getIsGameWindow())
+		if (gameController->getIsBoardSizeChooseMenu())
 		{
 			gameController->checkTextCorrectness(textSide);
 		}
@@ -364,7 +364,7 @@ namespace Lab4 {
 	private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e)
 	{
 //		gameController->checkTextCorrectness(textBox1);
-		if (!gameController->getIsGameWindow())
+		if (gameController->getIsBoardSizeChooseMenu())
 		{
 			gameController->checkTextCorrectness(textBox1);
 		}

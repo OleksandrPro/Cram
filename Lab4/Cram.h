@@ -44,8 +44,6 @@ public:
 		buttonDecreaseY = btnDecreaseY;
 		buttonIncreaseY = btnIncreaseY;
 
-//		form = f;
-
 		display();
 	}
 	bool getIsMainMenu()
