@@ -24,8 +24,8 @@ ref class Board
 private:
 	// Fields
 	array<Cell^, 2>^ cells;
-	const int DEFAULT_BOARD_SIZE_I = 7;
-	const int DEFAULT_BOARD_SIZE_J = 5;
+//	const int DEFAULT_BOARD_SIZE_I = 7;
+//	const int DEFAULT_BOARD_SIZE_J = 5;
 	BoardSize^ boardSize;
 	PictureBox^ pb;
 	TextBox^ tb_State;
@@ -205,6 +205,8 @@ private:
 		tb_Control->Text = text;
 	}
 public:
+	static const int DEFAULT_BOARD_SIZE_X = 7;
+	static const int DEFAULT_BOARD_SIZE_Y = 5;
 	Board(PictureBox^ pb1, TextBox^ tb1, TextBox^ tb2, int boardSizeI, int boardSizeJ)
 	{
 		pb = pb1;
@@ -215,10 +217,10 @@ public:
 		activePlayer = gcnew ActivePlayer;
 		gameOver = false;
 
-		if ((boardSizeI < DEFAULT_BOARD_SIZE_I) || (boardSizeJ < DEFAULT_BOARD_SIZE_J))
+		if ((boardSizeI < DEFAULT_BOARD_SIZE_X) || (boardSizeJ < DEFAULT_BOARD_SIZE_Y))
 		{
-			boardSize->i = DEFAULT_BOARD_SIZE_I;
-			boardSize->j = DEFAULT_BOARD_SIZE_J;
+			boardSize->i = DEFAULT_BOARD_SIZE_X;
+			boardSize->j = DEFAULT_BOARD_SIZE_Y;
 		}
 		else
 		{

@@ -330,7 +330,7 @@ namespace Lab4 {
 	}
 	private: System::Void buttonIncreaseX_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 	{
-//		gameController->UpdateTextField(textSide, true);
+		gameController->UpdateTextField(textSide, true);
 	}
 	private: System::Void buttonDecreaseX_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 	{
@@ -340,26 +340,34 @@ namespace Lab4 {
 		}
 		else if (gameController->getIsBoardSizeChooseMenu())
 		{
-//			gameController->UpdateTextField(textSide, false);
+			gameController->UpdateTextField(textSide, false);
 		}
 		this->Focus();
 	}
 	private: System::Void buttonIncreaseY_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 	{
-//		gameController->UpdateTextField(textBox1, true);
+		gameController->UpdateTextField(textBox1, true);
 	}
 	private: System::Void buttonDecreaseY_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 	{
-//		gameController->UpdateTextField(textBox1, false);
+		gameController->UpdateTextField(textBox1, false);
 	}
 
 	private: System::Void textSide_TextChanged(System::Object^ sender, System::EventArgs^ e)
 	{
+		if (!gameController->getIsGameWindow())
+		{
+			gameController->checkTextCorrectness(textSide);
+		}
 //		gameController->checkTextCorrectness(textSide);
 	}
 	private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e)
 	{
 //		gameController->checkTextCorrectness(textBox1);
+		if (!gameController->getIsGameWindow())
+		{
+			gameController->checkTextCorrectness(textBox1);
+		}
 	}
 	};
 }

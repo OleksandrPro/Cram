@@ -224,11 +224,111 @@ public:
 			disableElement(buttonIncreaseY);
 		}
 	}*/
+	bool checkBoardCreationPossibility(int boardSizeX, int boardSizeY)
+	{
+		if (boardSizeX < Board::DEFAULT_BOARD_SIZE_X || boardSizeY < Board::DEFAULT_BOARD_SIZE_Y)
+		{
+			return false;
+		}
+		else if (boardSizeX >= Board::DEFAULT_BOARD_SIZE_X && boardSizeY >= Board::DEFAULT_BOARD_SIZE_Y)
+		{
+			return true;
+		}
+	}
+	bool checkTextFieldCorrectness(TextBox^ tb)
+	{
+		bool textIsCorrect = true;
+		try
+		{
+			Int32::Parse(tb->Text);
+		}
+		catch (FormatException^)
+		{
+			textIsCorrect = false;
+		}
+		return textIsCorrect;
+	}
+	void UpdateTextField(TextBox^ tb, bool b)
+	{
+		// true =1, false = -1
+		try
+		{
+			int boardSize = Int32::Parse(tb->Text);
+			if (b)
+			{
+				++boardSize;
+			}
+			else
+			{
+				--boardSize;
+			}
+			tb->Text = boardSize.ToString();
+		}
+		catch (FormatException^)
+		{
+			blockElement(buttonStart);
+		}
+	}
+	void checkTextCorrectness(TextBox^ tb)
+	{
+		bool exceptionThrown = false;
+		bool buttonsToUpdateX = (tb == tb_Side);
+		bool textFieldXCorrect = checkTextFieldCorrectness(tb_Side);
+		bool textFieldYCorrect = checkTextFieldCorrectness(tb_State);
+		bool bothTextFieldsAreCorrectFormat = textFieldXCorrect && textFieldYCorrect;
+		bool boardCanBeCreated;
+		try
+		{
+			if (bothTextFieldsAreCorrectFormat)
+			{
+				int boardSizeX = Int32::Parse(tb_Side->Text);
+				int boardSizeY = Int32::Parse(tb_State->Text);
+				boardCanBeCreated = checkBoardCreationPossibility(boardSizeX, boardSizeY);
+			}
+			else
+			{
+				boardCanBeCreated = false;
+			}
+		}
+		catch (FormatException^)
+		{
+			exceptionThrown = true;
+		}
+		if ((bothTextFieldsAreCorrectFormat && buttonsToUpdateX) || (buttonsToUpdateX && textFieldXCorrect))
+		{
+			unblockElement(buttonDecreaseX);
+			unblockElement(buttonIncreaseX);
+		}
+		else if ((bothTextFieldsAreCorrectFormat && !buttonsToUpdateX) || (!buttonsToUpdateX && textFieldYCorrect))
+		{
+			unblockElement(buttonDecreaseY);
+			unblockElement(buttonIncreaseY);
+		}
+		if (buttonsToUpdateX && !textFieldXCorrect)
+		{
+			blockElement(buttonDecreaseX);
+			blockElement(buttonIncreaseX);
+		}
+		else if (!buttonsToUpdateX && !textFieldYCorrect)
+		{
+			blockElement(buttonDecreaseY);
+			blockElement(buttonIncreaseY);
+		}
+		if (exceptionThrown || !boardCanBeCreated)
+		{
+			blockElement(buttonStart);
+		}
+		else if (!exceptionThrown && boardCanBeCreated)
+		{
+			unblockElement(buttonStart);
+		}
+	}
 	void display()
 	{
 		if (isMainMenu)
 		{
 			pb->Visible = false;
+			pb->Enabled = false;
 
 			disableElement(tb_State);
 			disableElement(tb_Control);
@@ -272,6 +372,7 @@ public:
 		}
 		if (isGameWindow)
 		{
+			
 			tb_State->Location = System::Drawing::Point(115, 379);
 			tb_State->Size = System::Drawing::Size(490, 50);
 			tb_State->ReadOnly = true;
@@ -291,6 +392,7 @@ public:
 			disableElement(buttonIncreaseY);
 //			pb->Size = System::Drawing::Size(490, 350);
 			pb->Visible = true;
+			pb->Enabled = true;
 		}
 	}
 };
