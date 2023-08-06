@@ -23,8 +23,8 @@ namespace Lab4 {
 			//TODO: добавьте код конструктора
 			//
 //			gameBoard = gcnew Board(pbBoard, textBox1, textBox2, 10, 4);
-//			gameController = gcnew GameController(pbBoard, textBox1, textBox2, textSide, buttonStart, buttonDecreaseX, buttonIncreaseX, buttonDecreaseY, buttonIncreaseY);
-			gameController = gcnew GameController(pbBoard, textBox1, textBox2, buttonStart, buttonDecreaseX, buttonIncreaseX, buttonDecreaseY, buttonIncreaseY);
+			gameController = gcnew GameController(pbBoard, textBox1, textBox2, textSide, buttonStart, buttonDecreaseX, buttonIncreaseX, buttonDecreaseY, buttonIncreaseY);
+//			gameController = gcnew GameController(pbBoard, textBox1, textBox2, buttonStart, buttonDecreaseX, buttonIncreaseX, buttonDecreaseY, buttonIncreaseY);
 		}
 
 	protected:
